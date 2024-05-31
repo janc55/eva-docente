@@ -32,16 +32,32 @@ class ListAsignacions extends ListRecords
                 ])
                 ->handleRecordCreation(function(array $data) { 
                     if (!empty($data)) {
-                        return Asignacion::create([
-                            'cod_doc' => $data['cod_doc'],
-                            'cod_mat' => $data['cod_mat'],
-                            'gestion_id' => $data['gestion_id'],
-                            'turno' => $data['turno'],
-                            'paralelo' => $data['paralelo'],
-                        ]);
+                        try {
+                            // Convertir el turno a mayúsculas
+                            $turno = strtoupper($data['turno']);
+            
+                            // Crear la asignación
+                            return Asignacion::create([
+                                'cod_doc' => $data['cod_doc'],
+                                'cod_mat' => $data['cod_mat'],
+                                'gestion_id' => $data['gestion_id'],
+                                'turno' => $turno,
+                                'paralelo' => $data['paralelo'],
+                            ]);
+                        } catch (\Illuminate\Database\QueryException $exception) {
+                            // Manejar el error de duplicado
+                            if ($exception->getCode() == 23000) { // Código de error para violación de restricción única
+                                // Puedes manejar este error como prefieras
+                                // Por ejemplo, podrías loguearlo o devolver un mensaje específico
+                                return new Asignacion(); // O manejarlo de otra manera
+                            } else {
+                                // Relanzar la excepción si no es un error de duplicado
+                                throw $exception;
+                            }
+                        }
                     }
  
-                    return null;  // Retorna null si no hay datos válidos
+                    return new Asignacion();  // Retorna una instancia vacía si no hay datos válidos
                 }),
         ];
     }
