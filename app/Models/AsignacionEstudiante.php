@@ -33,4 +33,9 @@ class AsignacionEstudiante extends Model
     {
         return $this->belongsTo(Asignacion::class);
     }
+
+    public function evaluacionDocente()
+    {
+        return $this->hasOne(EvaluacionDocente::class);
+    }
 }

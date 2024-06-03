@@ -5,13 +5,17 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AsignacionResource\Pages;
 use App\Filament\Resources\AsignacionResource\RelationManagers;
 use App\Models\Asignacion;
+use App\Models\AsignacionEstudiante;
+use App\Models\EvaluacionDocente;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class AsignacionResource extends Resource
 {
@@ -83,7 +87,50 @@ class AsignacionResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('Habilitar Evaluacion')
+                        ->icon('heroicon-m-pencil-square')
+                        ->button()
+                        ->labeledFrom('md')
+                        ->requiresConfirmation()
+                        //->visible(false)
+                        ->action(function (Asignacion $record) {
+                                //dd($record->id);
+                                // Obtiene todas las asignaciones de estudiantes correspondientes a la asignación seleccionada
+                                $asignacionesEstudiantes = AsignacionEstudiante::where('asignacion_id', $record->id)
+                                    ->get();
+                                //dd($asignacionesEstudiantes);
+                                // Itera sobre cada asignación de estudiante y crea el registro de evaluación
+                                foreach ($asignacionesEstudiantes as $asignacionEstudiante) {
+                                    EvaluacionDocente::create([
+                                        'asignacion_estudiante_id' => $asignacionEstudiante->id,
+                                        'pregunta1' => null,
+                                        'pregunta2' => null,
+                                        'pregunta3' => null,
+                                        'pregunta4' => null,
+                                        'pregunta5' => null,
+                                        'pregunta6' => null,
+                                        'pregunta7' => null,
+                                        'pregunta8' => null,
+                                        'pregunta9' => null,
+                                        'pregunta10' => null,
+                                        'pregunta11' => null,
+                                        'pregunta12' => null,
+                                        'pregunta13' => null,
+                                        'pregunta14' => null,
+                                        'pregunta15' => null,
+                                        'pregunta16' => null,
+                                        'pregunta17' => null,
+                                        'respuesta_abierta' => null,
+                                        'estado' => false,
+                                        'fecha_inicio' => now(),
+                                        'fecha_fin' => now()->addWeeks(1), // Puedes ajustar la fecha de fin según tus necesidades
+                                    ]);
+                                }
+                        }),
+                ])
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

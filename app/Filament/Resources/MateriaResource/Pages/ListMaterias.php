@@ -34,7 +34,9 @@ class ListMaterias extends ListRecords
                         ->label('Carrera'),
                 ])
                 ->handleRecordCreation(function(array $data) { 
-                    if ($carrera = Carrera::all()->where('sigla', $data['carrera']['sigla'])->first()) {
+                    // Usar trim para eliminar espacios en blanco al principio y al final de 'sigla'
+                    $sigla = trim($data['carrera']['sigla']);
+                    if ($carrera = Carrera::all()->where('sigla', $sigla)->first()) {
                         return Materia::create([
                             'cod_mat' => $data['cod_mat'],
                             'nombre' => $data['nombre'],
