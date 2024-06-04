@@ -125,7 +125,7 @@ class AsignacionResource extends Resource
                                         'respuesta_abierta' => null,
                                         'estado' => false,
                                         'fecha_inicio' => now(),
-                                        'fecha_fin' => now()->addWeeks(1), // Puedes ajustar la fecha de fin según tus necesidades
+                                        'fecha_fin' => now()->addWeeks(2), // Puedes ajustar la fecha de fin según tus necesidades
                                     ]);
                                 }
                         }),

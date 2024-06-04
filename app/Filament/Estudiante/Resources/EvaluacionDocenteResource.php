@@ -7,6 +7,7 @@ use App\Filament\Estudiante\Resources\EvaluacionDocenteResource\RelationManagers
 use App\Models\AsignacionEstudiante;
 use App\Models\Estudiante;
 use App\Models\EvaluacionDocente;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,7 +21,7 @@ class EvaluacionDocenteResource extends Resource
 {
     protected static ?string $model = EvaluacionDocente::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
     public static function getEloquentQuery(): Builder
         {
@@ -47,6 +48,31 @@ class EvaluacionDocenteResource extends Resource
             return $query;
         }
 
+    public static function getNavigationBadge(): ?string
+        {
+            // Obtener el ID del usuario autenticado
+            $usuarioId = Auth::user()->id;
+
+            // Obtener el estudiante correspondiente al usuario autenticado
+            $estudiante = Estudiante::where('user_id', $usuarioId)->first();
+
+            // Si el estudiante no existe, retornar null
+            if (!$estudiante) {
+                return null;
+            }
+
+            // Obtener los IDs de las asignaciones del estudiante
+            $asignacionEstudianteIds = AsignacionEstudiante::where('estudiante_id', $estudiante->id)->pluck('id');
+
+            // Contar las evaluaciones pendientes del estudiante
+            $evaluacionesPendientesCount = EvaluacionDocente::whereIn('asignacion_estudiante_id', $asignacionEstudianteIds)
+                ->where('estado', false) // Filtrar las evaluaciones pendientes
+                ->count();
+
+            return $evaluacionesPendientesCount > 0 ? (string)$evaluacionesPendientesCount : null;
+        }
+
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -123,11 +149,13 @@ class EvaluacionDocenteResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('Evaluar')
                     ->color('success')
+                    ->icon('heroicon-o-pencil')
+                    ->hidden(fn(EvaluacionDocente $record) => $record->estado)
                     ->url(fn(EvaluacionDocente $record): string =>  self::getUrl('evaluar', ['record' => $record])),
             ])
             ->filters([
                 //
-            ]);
+            ])->recordUrl(null);
     }
 
     public static function getRelations(): array

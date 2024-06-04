@@ -20,7 +20,7 @@ class AsignacionEstudianteResource extends Resource
 {
     protected static ?string $model = AsignacionEstudiante::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     public static function getEloquentQuery(): Builder
         {
@@ -74,7 +74,7 @@ class AsignacionEstudianteResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->recordUrl(null);
     }
 
     public static function getRelations(): array

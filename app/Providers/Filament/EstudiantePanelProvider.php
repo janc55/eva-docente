@@ -27,7 +27,7 @@ class EstudiantePanelProvider extends PanelProvider
             ->path('estudiante')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/Estudiante/Resources'), for: 'App\\Filament\\Estudiante\\Resources')
             ->discoverPages(in: app_path('Filament/Estudiante/Pages'), for: 'App\\Filament\\Estudiante\\Pages')
@@ -36,8 +36,7 @@ class EstudiantePanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Estudiante/Widgets'), for: 'App\\Filament\\Estudiante\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                
             ])
             ->middleware([
                 EncryptCookies::class,
