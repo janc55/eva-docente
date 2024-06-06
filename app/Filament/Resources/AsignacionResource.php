@@ -89,6 +89,12 @@ class AsignacionResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('Ver Evaluacion')
+                        ->icon('heroicon-m-eye')
+                        ->labeledFrom('md')
+                        ->requiresConfirmation(),
+                        //->url(fn(EvaluacionDocente $record): string =>  self::getUrl('evaluar', ['record' => $record]))
+                        //->visible(false)
                     Tables\Actions\Action::make('Habilitar Evaluacion')
                         ->icon('heroicon-m-pencil-square')
                         ->button()
@@ -128,7 +134,7 @@ class AsignacionResource extends Resource
                                         'fecha_fin' => now()->addWeeks(2), // Puedes ajustar la fecha de fin según tus necesidades
                                     ]);
                                 }
-                        }),
+                        }),                        
                 ])
                 
             ])

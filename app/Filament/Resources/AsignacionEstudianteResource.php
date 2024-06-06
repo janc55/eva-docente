@@ -45,6 +45,7 @@ class AsignacionEstudianteResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('asignacion.materia.nombre')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('estudiante.nombre')
                     ->sortable(),
@@ -57,7 +58,7 @@ class AsignacionEstudianteResource extends Resource
                 Tables\Columns\IconColumn::make('eva_estado')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('nota_eva_doc')
-                    ->numeric()
+                    ->numeric(decimalPlaces: 2)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

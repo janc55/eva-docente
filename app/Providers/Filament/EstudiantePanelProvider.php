@@ -29,6 +29,7 @@ class EstudiantePanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Orange,
             ])
+            ->profile()
             ->discoverResources(in: app_path('Filament/Estudiante/Resources'), for: 'App\\Filament\\Estudiante\\Resources')
             ->discoverPages(in: app_path('Filament/Estudiante/Pages'), for: 'App\\Filament\\Estudiante\\Pages')
             ->pages([

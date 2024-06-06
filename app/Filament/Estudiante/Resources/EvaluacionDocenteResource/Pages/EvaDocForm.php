@@ -341,6 +341,25 @@ class EvaDocForm extends Page implements HasForms
                 // Guardar la evaluación docente
                 $evaluacionDocente->save();
 
+                // Calcular el promedio de las puntuaciones
+                $totalPreguntas = count($preguntasFields);
+                $totalPuntuacion = 0;
+
+                foreach ($preguntasFields as $field) {
+                    $totalPuntuacion += $evaluacionDocente->$field;
+                }
+
+                $promedioPuntuacion = $totalPuntuacion / $totalPreguntas;
+
+                // Redondear el promedio a dos decimales
+                $promedioPuntuacion = number_format($promedioPuntuacion, 2);
+
+                // Actualizar el registro de asignacion_estudiante con la nota promedio
+                $asignacionEstudiante = AsignacionEstudiante::findOrFail($asignacionEstudianteId);
+                $asignacionEstudiante->nota_eva_doc = $promedioPuntuacion;
+                $asignacionEstudiante->estado = true;
+                $asignacionEstudiante->save();
+
                 // Actualizar el campo de estado después de guardar
                 $evaluacionDocente->estado = true;
                 $evaluacionDocente->save();
