@@ -17,8 +17,10 @@ class ListMaterias extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            ImportAction::make() 
+            Actions\CreateAction::make()
+                ->label('Nueva Materia'),
+            ImportAction::make()
+                ->label('Importar') 
                 ->uniqueField('cod_mat')
                 ->fields([
                     ImportField::make('cod_mat')

@@ -17,7 +17,9 @@ class AsignacionEstudianteResource extends Resource
 {
     protected static ?string $model = AsignacionEstudiante::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-plus';
+
+    protected static ?string $navigationGroup = 'Académico';
 
     public static function form(Form $form): Form
     {

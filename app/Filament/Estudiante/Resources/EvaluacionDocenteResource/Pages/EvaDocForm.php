@@ -87,189 +87,202 @@ class EvaDocForm extends Page implements HasForms
         {
             return $form     
                 ->schema([
-                    Section::make('Organización y planificación')
-                    ->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
-                    ->aside()
-                    ->schema([
-                        Hidden::make('asignacion_estudiante_id')
-                            //->default($this->record->asignacion_estudiante_id)
-                            ,
-                        RangeSlider::make('pregunta1')
-                        ->label('Las clases están bien preparadas y organizadas exponiendo con precisión los objetivos del aprendizaje')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta2')
-                        ->label('Al inicio de las clases se da a conocer el programa y otros recursos necesarios para el desarrollo de la asignatura.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta3')
-                        ->label('El docente ha cumplido con el programa establecido.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                    ]),
-                Section::make('Desarrollo de catedra')
-                    ->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
-                    ->aside()
-                    ->schema([
-                        RangeSlider::make('pregunta4')
-                        ->label('El docente explica con claridad utilizando un lenguaje comprensible y técnico en el desarrollo de la clase.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta5')
-                        ->label('El docente demuestra dominio del contenido de la asignatura.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta6')
-                        ->label('El docente complementa adecuadamente la teoría con la práctica y problemas.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta7')
-                        ->label('Utiliza métodos y medios didácticos que facilitan el aprendizaje y estimula la motivación de los estudiantes   (Por Ej.: Expositivo, participativo, ilustrativo, uso de pizarra, data display, videos, grabaciones, modelos, etc.)')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta8')
-                        ->label('El docente relaciona los contenidos con otras asignaturas.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                        RangeSlider::make('pregunta9')
-                        ->label('El docente realiza actividades de investigación y extensión en su asignatura.')
-                        ->steps([
-                            '1'  => '1', // should get value: 25  for the A
-                            '2'  => '2', // should get value: 50  for the B
-                            '3'  => '3', // should get value: 75  for the C
-                            '4' => '4',
-                            '5' => '5'  // should get value: 100 for the D
-                        ]),
-                    ]),
-                    Section::make('Evaluación del aprendizaje')
-                        ->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
-                        ->aside()
+                    Section::make('Evaluación Docente')
+                        ->description(function() {
+                            return new HtmlString(
+                                '<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>' .
+                                '<span style="color: #dc2626;">1: NUNCA</span> ' .
+                                '<span style="color: #f97316;">2: RARAMENTE</span> ' .
+                                '<span style="color: #eab308;">3: A VECES</span> ' .
+                                '<span style="color: #84cc16;">4: FRECUENTEMENTE</span> ' .
+                                '<span style="color: #22c55e;">5: MUY FRECUENTEMENTE</span>' .
+                                '</p>'
+                            );
+                        })
                         ->schema([
-                            RangeSlider::make('pregunta10')
-                            ->label('Los criterios de evaluación de la asignatura se conocen desde el inicio del curso.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
+                            Section::make('Organización y planificación')
+                            //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
+                            //->aside()
+                            ->schema([
+                                Hidden::make('asignacion_estudiante_id')
+                                    //->default($this->record->asignacion_estudiante_id)
+                                    ,
+                                RangeSlider::make('pregunta1')
+                                ->label('Las clases están bien preparadas y organizadas exponiendo con precisión los objetivos del aprendizaje')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta2')
+                                ->label('Al inicio de las clases se da a conocer el programa y otros recursos necesarios para el desarrollo de la asignatura.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta3')
+                                ->label('El docente ha cumplido con el programa establecido.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                            ])->collapsible(),
+                        Section::make('Desarrollo de catedra')
+                            //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
+                            //->aside()
+                            ->schema([
+                                RangeSlider::make('pregunta4')
+                                ->label('El docente explica con claridad utilizando un lenguaje comprensible y técnico en el desarrollo de la clase.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta5')
+                                ->label('El docente demuestra dominio del contenido de la asignatura.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta6')
+                                ->label('El docente complementa adecuadamente la teoría con la práctica y problemas.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta7')
+                                ->label('Utiliza métodos y medios didácticos que facilitan el aprendizaje y estimula la motivación de los estudiantes   (Por Ej.: Expositivo, participativo, ilustrativo, uso de pizarra, data display, videos, grabaciones, modelos, etc.)')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta8')
+                                ->label('El docente relaciona los contenidos con otras asignaturas.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
+                                RangeSlider::make('pregunta9')
+                                ->label('El docente realiza actividades de investigación y extensión en su asignatura.')
+                                ->steps([
+                                    '1'  => '1', // should get value: 25  for the A
+                                    '2'  => '2', // should get value: 50  for the B
+                                    '3'  => '3', // should get value: 75  for the C
+                                    '4' => '4',
+                                    '5' => '5'  // should get value: 100 for the D
+                                ]),
                             ]),
-                            RangeSlider::make('pregunta11')
-                            ->label('Los exámenes responden a los contenidos de la asignatura.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                            RangeSlider::make('pregunta12')
-                            ->label('Hace conocer oportunamente los resultados de los exámenes')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                            RangeSlider::make('pregunta13')
-                            ->label('Evalúa y califica los exámenes, prácticas, trabajos y tareas asignadas de manera oportuna.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                            RangeSlider::make('pregunta14')
-                            ->label('Ofrece oportunidades para que los alumnos revisen sus trabajos y evaluaciones y planteen sus puntos de vista.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                        ]),
-                        Section::make('Responsabilidad y motivación')
-                        ->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
-                        ->aside()
-                        ->schema([
-                            RangeSlider::make('pregunta15')
-                            ->label('El docente inculca valores éticos y morales en el trabajo en aula.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                            RangeSlider::make('pregunta16')
-                            ->label('El docente demuestra una conducta ética con los alumnos dentro y fuera del aula.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                            RangeSlider::make('pregunta17')
-                            ->label('El docente motiva a los alumnos a participar activamente en las actividades de aprendizaje.')
-                            ->steps([
-                                '1'  => '1', // should get value: 25  for the A
-                                '2'  => '2', // should get value: 50  for the B
-                                '3'  => '3', // should get value: 75  for the C
-                                '4' => '4',
-                                '5' => '5'  // should get value: 100 for the D
-                            ]),
-                        ]),
-                        Section::make('Comentarios')
-                        ->schema([
-                            Textarea::make('respuesta_abierta')
-                                ->label('')
-                                ->columnSpanFull(),
+                            Section::make('Evaluación del aprendizaje')
+                                //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
+                                //->aside()
+                                ->schema([
+                                    RangeSlider::make('pregunta10')
+                                    ->label('Los criterios de evaluación de la asignatura se conocen desde el inicio del curso.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta11')
+                                    ->label('Los exámenes responden a los contenidos de la asignatura.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta12')
+                                    ->label('Hace conocer oportunamente los resultados de los exámenes')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta13')
+                                    ->label('Evalúa y califica los exámenes, prácticas, trabajos y tareas asignadas de manera oportuna.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta14')
+                                    ->label('Ofrece oportunidades para que los alumnos revisen sus trabajos y evaluaciones y planteen sus puntos de vista.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                ]),
+                            Section::make('Responsabilidad y motivación')
+                                //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
+                                //->aside()
+                                ->schema([
+                                    RangeSlider::make('pregunta15')
+                                    ->label('El docente inculca valores éticos y morales en el trabajo en aula.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta16')
+                                    ->label('El docente demuestra una conducta ética con los alumnos dentro y fuera del aula.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                    RangeSlider::make('pregunta17')
+                                    ->label('El docente motiva a los alumnos a participar activamente en las actividades de aprendizaje.')
+                                    ->steps([
+                                        '1'  => '1', // should get value: 25  for the A
+                                        '2'  => '2', // should get value: 50  for the B
+                                        '3'  => '3', // should get value: 75  for the C
+                                        '4' => '4',
+                                        '5' => '5'  // should get value: 100 for the D
+                                    ]),
+                                ]),
+                            Section::make('Comentarios')
+                                ->schema([
+                                    Textarea::make('respuesta_abierta')
+                                        ->label('')
+                                        ->columnSpanFull(),
+                                ])
                         ])
-                    
                 ])
                 ->statePath('data');
         }

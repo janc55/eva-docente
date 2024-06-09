@@ -18,8 +18,10 @@ class ListAsignacionEstudiantes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            ImportAction::make() 
+            Actions\CreateAction::make()
+                ->label('Nueva Asignación'),
+            ImportAction::make()
+                ->label('Importar') 
                 ->fields([
                     ImportField::make('cod_mat')
                         ->required(),

@@ -19,8 +19,10 @@ class ListEstudiantes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            ImportAction::make() 
+            Actions\CreateAction::make()
+                ->label('Nuevo Estudiante'),
+            ImportAction::make()
+                ->label('Importar')  
                 ->uniqueField('cod_est')
                 ->fields([
                     ImportField::make('cod_est')

@@ -18,8 +18,10 @@ class ListDocentes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            ImportAction::make() 
+            Actions\CreateAction::make()
+                ->label('Nuevo Docente'),
+            ImportAction::make()
+                ->label('Importar') 
                 ->uniqueField('cod_doc')
                 ->fields([
                     ImportField::make('cod_doc')

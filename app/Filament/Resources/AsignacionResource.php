@@ -21,7 +21,11 @@ class AsignacionResource extends Resource
 {
     protected static ?string $model = Asignacion::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder-open';
+
+    protected static ?string $navigationGroup = 'Académico';
+
+    protected static ?string $navigationLabel = 'Asignaciones';
 
     public static function form(Form $form): Form
     {
@@ -92,8 +96,8 @@ class AsignacionResource extends Resource
                     Tables\Actions\Action::make('Ver Evaluacion')
                         ->icon('heroicon-m-eye')
                         ->labeledFrom('md')
-                        ->requiresConfirmation(),
-                        //->url(fn(EvaluacionDocente $record): string =>  self::getUrl('evaluar', ['record' => $record]))
+                        ->requiresConfirmation()
+                        ->url(fn(Asignacion $record): string =>  self::getUrl('vista', ['record' => $record])),
                         //->visible(false)
                     Tables\Actions\Action::make('Habilitar Evaluacion')
                         ->icon('heroicon-m-pencil-square')
@@ -158,6 +162,7 @@ class AsignacionResource extends Resource
             'index' => Pages\ListAsignacions::route('/'),
             'create' => Pages\CreateAsignacion::route('/create'),
             'edit' => Pages\EditAsignacion::route('/{record}/edit'),
+            'vista' => Pages\VistaEvaluacionDocente::route('/{record}/vista'),
         ];
     }
 }
