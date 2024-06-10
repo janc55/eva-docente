@@ -193,7 +193,7 @@ class EvaDocForm extends Page implements HasForms
                                     '4' => '4',
                                     '5' => '5'  // should get value: 100 for the D
                                 ]),
-                            ]),
+                            ])->collapsible(),
                             Section::make('Evaluación del aprendizaje')
                                 //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
                                 //->aside()
@@ -243,7 +243,7 @@ class EvaDocForm extends Page implements HasForms
                                         '4' => '4',
                                         '5' => '5'  // should get value: 100 for the D
                                     ]),
-                                ]),
+                                ])->collapsible(),
                             Section::make('Responsabilidad y motivación')
                                 //->description(fn() => new HtmlString('<p class="text-gray-400">Califica cada pregunta de acuerdo a la siguiente escala: <br>1: NUNCA 2: RARAMENTE  3: A VECES 4: FRECUENTEMENTE 5: MUY FRECUENTEMENTE</p>'))
                                 //->aside()
@@ -275,7 +275,7 @@ class EvaDocForm extends Page implements HasForms
                                         '4' => '4',
                                         '5' => '5'  // should get value: 100 for the D
                                     ]),
-                                ]),
+                                ])->collapsible(),
                             Section::make('Comentarios')
                                 ->schema([
                                     Textarea::make('respuesta_abierta')
