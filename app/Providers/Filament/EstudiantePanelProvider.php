@@ -23,12 +23,14 @@ class EstudiantePanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('estudiante')
             ->path('estudiante')
             ->login()
             ->colors([
                 'primary' => Color::Orange,
             ])
+            ->brandName('UNIOR')
             ->profile()
             ->discoverResources(in: app_path('Filament/Estudiante/Resources'), for: 'App\\Filament\\Estudiante\\Resources')
             ->discoverPages(in: app_path('Filament/Estudiante/Pages'), for: 'App\\Filament\\Estudiante\\Pages')
