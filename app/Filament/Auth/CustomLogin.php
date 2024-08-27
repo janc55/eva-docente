@@ -2,11 +2,9 @@
 
 namespace App\Filament\Auth;
 
-use Filament\Actions\Action;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Auth\Login;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Validation\ValidationException;
 
 class CustomLogin extends Login
@@ -18,10 +16,8 @@ class CustomLogin extends Login
                 $this->makeForm()
                     ->schema([
                         $this->getLoginFormComponent(),
-                        $this->getPasswordFormComponent()
-                            ->label('Contraseña'),
-                        $this->getRememberFormComponent()
-                            ->label('Recuerdame'),
+                        $this->getPasswordFormComponent(),
+                        $this->getRememberFormComponent(),
                     ])
                     ->statePath('data'),
             ),
@@ -31,17 +27,11 @@ class CustomLogin extends Login
     protected function getLoginFormComponent(): Component
     {
         return TextInput::make('login')
-            ->label(__('Username / Email'))
+            ->label('Codigo de estudiante')
             ->required()
             ->autocomplete()
             ->autofocus()
             ->extraInputAttributes(['tabindex' => 1]);
-    }
-
-    public function registerAction(): Action
-    {
-        return Action::make('register')
-            ->label('Prueba');
     }
 
     protected function getCredentialsFromFormData(array $data): array
@@ -58,11 +48,5 @@ class CustomLogin extends Login
         throw ValidationException::withMessages([
             'data.login' => __('filament-panels::pages/auth/login.messages.failed'),
         ]);
-    }
-
-
-    public function getHeading(): string | Htmlable
-    {
-        return 'Acceso Estudiante';
     }
 }

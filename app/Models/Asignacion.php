@@ -41,4 +41,9 @@ class Asignacion extends Model
                     ->withPivot(['activo', 'estado', 'eva_estado', 'nota_eva_doc'])
                     ->withTimestamps();
     }
+
+    public function asignacionesEstudiantes()
+    {
+        return $this->hasMany(AsignacionEstudiante::class);
+    }
 }

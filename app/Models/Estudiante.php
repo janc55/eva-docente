@@ -39,4 +39,9 @@ class Estudiante extends Model
             ->withPivot(['activo', 'estado', 'eva_estado', 'nota_eva_doc'])
             ->withTimestamps();
     }
+
+    public function vistaNombre()
+    {
+        return $this->belongsTo(VistaNombre::class, 'id', 'id');
+    }
 }

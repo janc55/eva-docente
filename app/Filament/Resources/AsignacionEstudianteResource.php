@@ -49,7 +49,8 @@ class AsignacionEstudianteResource extends Resource
                 Tables\Columns\TextColumn::make('asignacion.materia.nombre')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('estudiante.nombre')
+                    
+                Tables\Columns\TextColumn::make('estudiante.vistaNombre.nombre_comp')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('estudiante.cod_est')
                     ->sortable()

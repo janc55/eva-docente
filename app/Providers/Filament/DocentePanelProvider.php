@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Auth\CustomLogin;
+use App\Filament\Auth\CustomDocenteLogin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -19,28 +19,25 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class EstudiantePanelProvider extends PanelProvider
+class DocentePanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('estudiante')
-            ->path('estudiante')
-            ->login(CustomLogin::class)
+            ->id('docente')
+            ->path('docente')
+            ->login(CustomDocenteLogin::class)
             ->colors([
-                'primary' => Color::Orange,
+                'primary' => Color::Blue,
             ])
-            ->brandName('UNIOR')
-            ->profile()
-            ->discoverResources(in: app_path('Filament/Estudiante/Resources'), for: 'App\\Filament\\Estudiante\\Resources')
-            ->discoverPages(in: app_path('Filament/Estudiante/Pages'), for: 'App\\Filament\\Estudiante\\Pages')
+            ->discoverResources(in: app_path('Filament/Docente/Resources'), for: 'App\\Filament\\Docente\\Resources')
+            ->discoverPages(in: app_path('Filament/Docente/Pages'), for: 'App\\Filament\\Docente\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Estudiante/Widgets'), for: 'App\\Filament\\Estudiante\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Docente/Widgets'), for: 'App\\Filament\\Docente\\Widgets')
             ->widgets([
-                
+                Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
